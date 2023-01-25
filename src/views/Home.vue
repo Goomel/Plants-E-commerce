@@ -1,7 +1,7 @@
 <template>
-  <HelloWorld />
+  <Base> </Base>
 </template>
 
 <script lang="ts" setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+import Base from "@/components/Base.vue";
 </script>
