@@ -18,3 +18,9 @@ export interface Image {
 type Size = "S" | "M" | "L";
 type Category = "Indoor" | "Outdoor" | "Garden"
 
+export enum ProductsToShow {
+    Popular = "popular",
+    New = "new",
+    All = "all"
+}
+

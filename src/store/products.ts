@@ -67,4 +67,3 @@ export const useProductsStore = defineStore('products', ()=>{
   }
   return {products, product, error, loading, fetchProducts, fetchProduct}
 })
-
