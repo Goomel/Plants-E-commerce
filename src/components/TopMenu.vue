@@ -3,35 +3,35 @@
     <v-toolbar class="d-flex" color="transparent">
       <v-btn
         :variant="
-          currentProductsToShow === ProductsToShow.All ? 'text' : 'plain'
+          props.currentProducts === ProductsToShow.All ? 'text' : 'plain'
         "
         :class="{
-          'font-weight-black': currentProductsToShow === ProductsToShow.All,
+          'font-weight-black': props.currentProducts === ProductsToShow.All,
         }"
         class="text-capitalize"
-        @click="changeCurrentProducts(ProductsToShow.All)"
+        @click="props.changeProducts(ProductsToShow.All)"
         >All</v-btn
       >
       <v-btn
         :variant="
-          currentProductsToShow === ProductsToShow.Popular ? 'text' : 'plain'
+          props.currentProducts === ProductsToShow.Popular ? 'text' : 'plain'
         "
         :class="{
-          'font-weight-black': currentProductsToShow === ProductsToShow.Popular,
+          'font-weight-black': props.currentProducts === ProductsToShow.Popular,
         }"
         class="text-capitalize"
-        @click="changeCurrentProducts(ProductsToShow.Popular)"
+        @click="props.changeProducts(ProductsToShow.Popular)"
         >Popular</v-btn
       >
       <v-btn
         :variant="
-          currentProductsToShow === ProductsToShow.New ? 'text' : 'plain'
+          props.currentProducts === ProductsToShow.New ? 'text' : 'plain'
         "
         :class="{
-          'font-weight-black': currentProductsToShow === ProductsToShow.New,
+          'font-weight-black': props.currentProducts === ProductsToShow.New,
         }"
         class="text-capitalize"
-        @click="changeCurrentProducts(ProductsToShow.New)"
+        @click="props.changeProducts(ProductsToShow.New)"
         >New</v-btn
       >
       <v-spacer></v-spacer>
@@ -41,13 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Ref } from "vue";
 import { ProductsToShow } from "@/types";
 import FilteringModal from "./FilteringModal.vue";
 
-const currentProductsToShow: Ref<ProductsToShow> = ref(ProductsToShow.All);
-const changeCurrentProducts = (typeOfProducts: ProductsToShow) => {
-  currentProductsToShow.value = typeOfProducts;
-};
+const props = defineProps({
+  currentProducts: { required: true },
+  changeProducts: { type: Function, required: true },
+});
 </script>

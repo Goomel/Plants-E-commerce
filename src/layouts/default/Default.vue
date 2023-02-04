@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar class="pt-6" flat>
+    <v-app-bar class="pt-6" flat absolute>
       <template v-slot:append>
         <v-container class="w-100 ml-5">
           <v-row>

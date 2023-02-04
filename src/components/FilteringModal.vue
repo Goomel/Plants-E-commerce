@@ -1,12 +1,11 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="dialog" transition="dialog-bottom-transition">
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator="{ attrs }">
         <v-btn
           size="small"
           color="secondary"
           @click="dialog = !dialog"
-          v-on="on"
           v-bind="attrs"
         >
           <img src="@/assets/icons/filter-icon.svg" />

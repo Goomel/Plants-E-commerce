@@ -21,6 +21,6 @@ type Category = "Indoor" | "Outdoor" | "Garden"
 export enum ProductsToShow {
     Popular = "popular",
     New = "new",
-    All = "all"
+    All = ""
 }
 

@@ -9,11 +9,11 @@ export const useProductsStore = defineStore('products', ()=>{
   const loading = ref(true);
   const error = ref<Error | unknown>();
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (filter: string) => {
     try {
       const res = await request({
         query: `query{
-          allProducts {
+          allProducts${filter ? `(filter: { ${filter}: { eq: true } })` : '' } {
             id
             name
             slug
@@ -50,6 +50,8 @@ export const useProductsStore = defineStore('products', ()=>{
               category
               size
               description
+              new
+              popular
               images {
                 url
                 }
