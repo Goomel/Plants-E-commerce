@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia'
 import { request } from '@/datocms';
 import { ref } from 'vue';
-import { Product } from '@/types'
+import type { Product } from '@/types'
 
 export const useProductsStore = defineStore('products', ()=>{
   const products = ref<Product[]>([]);
   const product = ref<Product>();
-  const loading = ref(true);
+  const loading = ref(false);
   const error = ref<Error | unknown>();
 
   const fetchProducts = async (filter: string) => {
+    error.value = null;
+    loading.value = true;
     try {
       const res = await request({
         query: `query{
@@ -37,7 +39,9 @@ export const useProductsStore = defineStore('products', ()=>{
     loading.value = false;
 }
 
-  const fetchProduct = async (id: number)=>{
+  const fetchProduct = async (id: string)=>{
+    error.value = null;
+    loading.value = true;
     try {
       const res = await request({
         query: `
@@ -64,8 +68,9 @@ export const useProductsStore = defineStore('products', ()=>{
       });
       product.value = res.product;
     } catch (e) {
-      console.log(e)
+      error.value = e;
     }
+    loading.value = false;
   }
   return {products, product, error, loading, fetchProducts, fetchProduct}
 })

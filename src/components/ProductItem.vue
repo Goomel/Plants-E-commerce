@@ -1,46 +1,20 @@
 <template>
-  <v-card class="w-100 mb-8" color="blue-grey-lighten-5" height="450">
+  <v-card
+    :to="'/product/' + id"
+    class="w-100 mb-8 pb-5"
+    color="blue-grey-lighten-5"
+  >
     <template v-slot:title>
-      {{ props.name }}
+      {{ name }}
     </template>
-
-    <Transition name="fade" class="ma-2">
-      <component
-        :is="activeComponent"
-        :images="props.images"
-        :name="props.name"
-        @mouse-over-image="changeProductImage(SecondProductImg)"
-        @mouse-leave-image="changeProductImage(FirstProductImg)"
-      />
-    </Transition>
+    <v-img :src="images[0].url" cover height="350" class="ma-3"></v-img>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import { shallowRef } from "vue";
-import FirstProductImg from "./FirstProductImg.vue";
-import SecondProductImg from "./SecondProductImg.vue";
-
-const activeComponent = shallowRef(FirstProductImg);
-
-const props = defineProps({
+defineProps({
   name: { type: String, required: true },
   images: { type: Array<{ url: string }>, required: true },
+  id: { type: String, required: true },
 });
-
-const changeProductImage = (imageComponent: any) => {
-  activeComponent.value = imageComponent;
-};
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

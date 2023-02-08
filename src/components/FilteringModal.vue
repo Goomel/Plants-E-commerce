@@ -3,12 +3,10 @@
     <v-dialog v-model="dialog" transition="dialog-bottom-transition">
       <template v-slot:activator="{ attrs }">
         <v-btn
-          size="small"
-          color="secondary"
           @click="dialog = !dialog"
           v-bind="attrs"
+          icon="mdi-tune-vertical-variant"
         >
-          <img src="@/assets/icons/filter-icon.svg" />
         </v-btn>
       </template>
 

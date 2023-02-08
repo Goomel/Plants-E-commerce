@@ -11,6 +11,7 @@
       :key="product.id"
       :name="product.name"
       :images="product.images"
+      :id="product.id"
     />
   </div>
 </template>
