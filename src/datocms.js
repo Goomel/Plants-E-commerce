@@ -1,7 +1,10 @@
 import { GraphQLClient } from "graphql-request";
 export function request({ query, variables, includeDrafts, excludeInvalid }) {
   const headers = {
-    authorization: `Bearer ${import.meta.env.VITE_CMS_DATOCMS_API_TOKEN}`,
+    authorization: `Bearer ${
+      import.meta.env.VITE_CMS_DATOCMS_API_TOKEN ??
+      process.env.VITE_CMS_DATOCMS_API_TOKEN
+    }`,
   };
   if (includeDrafts) {
     headers["X-Include-Drafts"] = "true";
