@@ -5,11 +5,7 @@
         <v-container class="w-100 ml-5">
           <v-row>
             <v-col class="d-flex align-center">
-              <v-btn icon class="mr-2">
-                <v-badge :content="0" color="green-darken-2">
-                  <v-icon icon="mdi-briefcase-outline" size="large"></v-icon>
-                </v-badge>
-              </v-btn>
+              <CartButton />
             </v-col>
             <v-col>
               <v-btn icon="mdi-magnify" size="large"></v-btn>
@@ -26,3 +22,6 @@
     </v-main>
   </v-app>
 </template>
+<script setup lang="ts">
+import CartButton from "@/components/CartButton.vue";
+</script>

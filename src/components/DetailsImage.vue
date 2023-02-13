@@ -9,9 +9,7 @@
         @click="$router.go(-1)"
       />
       <v-spacer></v-spacer>
-      <v-badge :content="0" color="green-darken-2" class="ma-2 mr-9">
-        <v-icon icon="mdi-briefcase-outline" size="large" />
-      </v-badge>
+      <CartButton />
     </v-toolbar>
     <v-carousel hide-delimiters>
       <v-carousel-item
@@ -25,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import CartButton from "./CartButton.vue";
 defineProps({
   images: { type: Array<{ url: string }>, required: true },
 });
