@@ -22,27 +22,27 @@
                 items-center
                 class="pa-4 ma-0 d-flex category-button"
                 :class="{
-                  'is-active-button': selectedCategory === 'indoor',
+                  'is-active-button': filters.category === 'indoor',
                 }"
-                @click="selectedCategory = 'indoor'"
+                @click="updateCategory('indoor')"
                 >indoor</v-btn
               >
               <v-btn
                 rounded
                 class="pa-4 ma-0 d-flex category-button"
                 :class="{
-                  'is-active-button': selectedCategory === 'outdoor',
+                  'is-active-button': filters.category === 'outdoor',
                 }"
-                @click="selectedCategory = 'outdoor'"
+                @click="updateCategory('outdoor')"
                 >outdoor</v-btn
               >
               <v-btn
                 rounded
                 class="pa-4 ma-0 d-flex category-button"
                 :class="{
-                  'is-active-button': selectedCategory === 'garden',
+                  'is-active-button': filters.category === 'garden',
                 }"
-                @click="selectedCategory = 'garden'"
+                @click="updateCategory('garden')"
                 >garden</v-btn
               >
             </v-row>
@@ -65,8 +65,9 @@
                 >Size</v-card-text
               >
               <v-select
+                clearable
                 :menu-props="{ location: 'top' }"
-                v-model="selectedSize"
+                v-model="filters.size"
                 label="Size"
                 :items="sizeItems"
                 variant="solo"
@@ -83,14 +84,17 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useProductsStore } from "@/store/products";
+
+const { updateCategory } = useProductsStore();
+const { filteredProducts, filters } = storeToRefs(useProductsStore());
 
 const dialog = ref(false);
 const priceRange = ref<number[]>([0, 20]);
-const sizeItems: Array<string> = ["S", "M", "L", "ALL"];
-
-const selectedSize = ref("ALL");
-const selectedCategory = ref("");
+const sizeItems: Array<string> = ["S", "M", "L"];
 </script>
+
 <style>
 .v-dialog .v-overlay__content {
   min-height: 65%;

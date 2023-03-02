@@ -15,12 +15,18 @@ export interface Image {
     url: string;
 }
 
-type Size = "S" | "M" | "L";
-type Category = "Indoor" | "Outdoor" | "Garden"
+export type Size = "S" | "M" | "L";
 
-export enum ProductsToShow {
+export type Category = "indoor" | "outdoor" | "garden"
+
+export enum TypeOfProducts {
     Popular = "popular",
     New = "new",
     All = ""
 }
 
+export interface Filter {
+    price: number | null;
+    category: Category | null;
+    size: Size | null;
+}

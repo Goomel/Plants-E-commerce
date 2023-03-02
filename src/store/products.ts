@@ -1,15 +1,36 @@
 import { defineStore } from 'pinia'
 import { request } from '@/datocms';
-import { ref } from 'vue';
-import type { Product } from '@/types'
+import { ref, computed } from 'vue';
+import { Category, Product, TypeOfProducts } from '@/types'
+import { Filter } from '@/types'
 
 export const useProductsStore = defineStore('products', ()=>{
   const products = ref<Product[]>([]);
   const product = ref<Product>();
   const loading = ref(false);
   const error = ref<Error | unknown>();
+  const filters = ref<Filter>({
+    price: null,
+    category: null,
+    size: null
+  })
+  const currentProducts = ref(TypeOfProducts.All)
+  const filteredProducts = computed(()=>{
+    return products.value.filter(product => {
+      if (filters.value.price && product.price !== filters.value.price){
+        return false
+      }
+      if (filters.value.category && product.category !== filters.value.category){
+        return false
+      }
+      if (filters.value.size && product.size !== filters.value.size){
+        return false
+      }
+      return true
+    })
+  })
 
-  const fetchProducts = async (filter: string) => {
+  const fetchProducts = async (filter: TypeOfProducts) => {
     error.value = null;
     loading.value = true;
     try {
@@ -26,6 +47,8 @@ export const useProductsStore = defineStore('products', ()=>{
             images {
               url
               }
+            popular
+            new
             }
           }`,
         variables: undefined,
@@ -37,6 +60,7 @@ export const useProductsStore = defineStore('products', ()=>{
       error.value = e;
     }
     loading.value = false;
+
 }
 
   const fetchProduct = async (id: string)=>{
@@ -72,5 +96,17 @@ export const useProductsStore = defineStore('products', ()=>{
     }
     loading.value = false;
   }
-  return {products, product, error, loading, fetchProducts, fetchProduct}
+
+  const updateCategory = (category: Category) =>{
+    filters.value.category = category
+  }
+//  const updatePrice = () => {
+
+//  }
+  const updateCurrentProducts = (currentType: TypeOfProducts) =>{
+    currentProducts.value = currentType
+    fetchProducts(currentProducts.value)
+  }
+
+  return {products, product, error, loading, fetchProducts, fetchProduct, filteredProducts, filters, updateCategory,currentProducts, updateCurrentProducts}
 })

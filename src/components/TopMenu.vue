@@ -2,36 +2,30 @@
   <div>
     <v-toolbar class="d-flex" color="transparent">
       <v-btn
-        :variant="
-          props.currentProducts === ProductsToShow.All ? 'text' : 'plain'
-        "
+        :variant="currentProducts === TypeOfProducts.All ? 'text' : 'plain'"
         :class="{
-          'font-weight-black': props.currentProducts === ProductsToShow.All,
+          'font-weight-black': currentProducts === TypeOfProducts.All,
         }"
         class="text-capitalize"
-        @click="props.changeProducts(ProductsToShow.All)"
+        @click="updateCurrentProducts(TypeOfProducts.All)"
         >All</v-btn
       >
       <v-btn
-        :variant="
-          props.currentProducts === ProductsToShow.Popular ? 'text' : 'plain'
-        "
+        :variant="currentProducts === TypeOfProducts.Popular ? 'text' : 'plain'"
         :class="{
-          'font-weight-black': props.currentProducts === ProductsToShow.Popular,
+          'font-weight-black': currentProducts === TypeOfProducts.Popular,
         }"
         class="text-capitalize"
-        @click="props.changeProducts(ProductsToShow.Popular)"
+        @click="updateCurrentProducts(TypeOfProducts.Popular)"
         >Popular</v-btn
       >
       <v-btn
-        :variant="
-          props.currentProducts === ProductsToShow.New ? 'text' : 'plain'
-        "
+        :variant="currentProducts === TypeOfProducts.New ? 'text' : 'plain'"
         :class="{
-          'font-weight-black': props.currentProducts === ProductsToShow.New,
+          'font-weight-black': currentProducts === TypeOfProducts.New,
         }"
         class="text-capitalize"
-        @click="props.changeProducts(ProductsToShow.New)"
+        @click="updateCurrentProducts(TypeOfProducts.New)"
         >New</v-btn
       >
       <v-spacer></v-spacer>
@@ -41,11 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ProductsToShow } from "@/types";
 import FilteringModal from "./FilteringModal.vue";
+import { useProductsStore } from "@/store/products";
+import { storeToRefs } from "pinia";
+import { TypeOfProducts } from "@/types";
 
-const props = defineProps({
-  currentProducts: { required: true },
-  changeProducts: { type: Function, required: true },
-});
+const { currentProducts } = storeToRefs(useProductsStore());
+const { updateCurrentProducts } = useProductsStore();
 </script>
