@@ -2,14 +2,17 @@
   <TopMenu />
   <div v-if="error">Error...</div>
   <div v-if="loading">Loading...</div>
-  <div v-else class="d-flex flex-wrap">
-    <ProductItem
-      v-for="product in filteredProducts"
-      :key="product.id"
-      :name="product.name"
-      :images="product.images"
-      :id="product.id"
-    />
+  <div v-else>
+    <div v-if="filteredProducts.length" class="d-flex flex-wrap">
+      <ProductItem
+        v-for="product in filteredProducts"
+        :key="product.id"
+        :name="product.name"
+        :images="product.images"
+        :id="product.id"
+      />
+    </div>
+    <div v-else>Current filters don't match any products...</div>
   </div>
 </template>
 

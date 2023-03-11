@@ -11,9 +11,18 @@
 
     <v-card>
       <v-container>
-        <v-card-title class="font-weight-bold text-uppercase text-h5"
-          >Filters</v-card-title
+        <div
+          class="d-flex align-center justify-space-between"
+          @click="resetFilters()"
         >
+          <v-card-title class="font-weight-bold text-uppercase text-h5"
+            >Filters</v-card-title
+          >
+          <v-btn rounded items-center class="pa-4 ma-0 d-flex"
+            >Reset filters</v-btn
+          >
+        </div>
+
         <v-card-actions>
           <v-col>
             <v-row class="my-8 justify-space-between">
@@ -54,10 +63,12 @@
             <v-row class="my-3">
               <v-range-slider
                 color="green"
-                v-model="priceRange"
+                v-model="filters.priceRange"
                 step="1"
                 thumb-label
                 thumb-size="25"
+                min="0"
+                max="50"
               ></v-range-slider>
             </v-row>
             <v-row class="mt-10 align-center">
@@ -65,7 +76,6 @@
                 >Size</v-card-text
               >
               <v-select
-                clearable
                 :menu-props="{ location: 'top' }"
                 v-model="filters.size"
                 label="Size"
@@ -87,12 +97,11 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductsStore } from "@/store/products";
 
-const { updateCategory } = useProductsStore();
-const { filteredProducts, filters } = storeToRefs(useProductsStore());
+const { updateCategory, resetFilters } = useProductsStore();
+const { filters } = storeToRefs(useProductsStore());
 
 const dialog = ref(false);
-const priceRange = ref<number[]>([0, 20]);
-const sizeItems: Array<string> = ["S", "M", "L"];
+const sizeItems: Array<string> = ["S", "M", "L", "ALL"];
 </script>
 
 <style>

@@ -15,7 +15,7 @@ export interface Image {
     url: string;
 }
 
-export type Size = "S" | "M" | "L";
+export type Size = "S" | "M" | "L" | "ALL";
 
 export type Category = "indoor" | "outdoor" | "garden"
 
@@ -26,7 +26,7 @@ export enum TypeOfProducts {
 }
 
 export interface Filter {
-    price: number | null;
+    priceRange: [number, number],
     category: Category | null;
     size: Size | null;
 }
