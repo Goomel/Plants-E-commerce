@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0 product__view">
     <div v-if="error">Error</div>
-    <div v-if="loading">Loading...</div>
+    <Loader v-if="loading" class="product__view" />
     <template v-else-if="product">
       <DetailsImage :images="product.images" />
       <DetailsDescription :product="product" />
@@ -16,6 +16,7 @@ import { useRoute } from "vue-router";
 import { useProductsStore } from "@/store/products";
 import DetailsImage from "@/components/DetailsImage.vue";
 import DetailsDescription from "@/components/DetailsDescription.vue";
+import Loader from "@/components/Loader.vue";
 
 const route = useRoute();
 const id = ref(route.params.id);

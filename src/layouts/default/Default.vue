@@ -1,18 +1,21 @@
 <template>
   <v-app>
-    <v-app-bar class="pt-6" flat absolute>
-      <template v-slot:append>
-        <v-container class="w-100 ml-5">
-          <v-row>
-            <v-col class="d-flex align-center">
-              <CartButton />
-            </v-col>
-            <v-col>
-              <v-btn icon="mdi-magnify" size="large"></v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </template>
+    <v-app-bar class="pt-6 w-100" flat absolute>
+      <v-container class="w-100">
+        <Search v-if="isSearchActive" />
+        <v-row v-else class="d-flex justify-end">
+          <v-col class="flex-grow-0">
+            <CartButton />
+          </v-col>
+          <v-col class="flex-grow-0">
+            <v-btn
+              icon="mdi-magnify"
+              size="large"
+              @click="isSearchActive = !isSearchActive"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-app-bar>
 
     <v-main class="pt-0" style="margin-top: 88px">
@@ -24,4 +27,10 @@
 </template>
 <script setup lang="ts">
 import CartButton from "@/components/CartButton.vue";
+import Search from "@/components/Search.vue";
+
+import { useProductsStore } from "@/store/products";
+import { storeToRefs } from "pinia";
+
+const { isSearchActive } = storeToRefs(useProductsStore());
 </script>

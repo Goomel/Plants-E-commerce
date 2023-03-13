@@ -8,6 +8,8 @@ export const useProductsStore = defineStore('products', ()=>{
   const products = ref<Product[]>([]);
   const product = ref<Product>();
   const loading = ref(false);
+  const isSearchActive = ref(false);
+  const searchValue = ref('');
   const error = ref<Error | unknown>();
   const currentProducts = ref(TypeOfProducts.All)
   const filteredProducts = computed(()=>{
@@ -49,7 +51,7 @@ export const useProductsStore = defineStore('products', ()=>{
     }
   })
 
-  const fetchProducts = async (filter: TypeOfProducts) => {
+  const fetchProducts = async (filter: TypeOfProducts = TypeOfProducts.All) => {
     error.value = null;
     loading.value = true;
     try {
@@ -58,11 +60,9 @@ export const useProductsStore = defineStore('products', ()=>{
           allProducts${filter ? `(filter: { ${filter}: { eq: true } })` : '' } {
             id
             name
-            slug
             price
             category
             size
-            description
             images {
               url
               }
@@ -91,13 +91,10 @@ export const useProductsStore = defineStore('products', ()=>{
           product(filter: { id: { eq: ${id} } }){
               id
               name
-              slug
               price
               category
               size
               description
-              new
-              popular
               images {
                 url
                 }
@@ -113,6 +110,42 @@ export const useProductsStore = defineStore('products', ()=>{
       error.value = e;
     }
     loading.value = false;
+  }
+
+  const searchProducts = async (name: string) =>{
+    if(name && typeof name == 'string'){
+      try {
+        const res = await request({
+          query: `query {
+            allProducts(
+              filter: {
+                name: {
+                  matches: { pattern: "${name}", caseSensitive: false }
+                }
+              }
+            ) {
+              id
+              name
+              price
+              category
+              size
+              images {
+                url
+                }
+              popular
+              new
+            } 
+          }`,
+          variables: undefined,
+          includeDrafts: undefined,
+          excludeInvalid: undefined
+        });
+          products.value = res.allProducts;
+          filters.value.priceRange = [0, maxPriceRange]
+      } catch (e) {
+        error.value = e;
+      }
+    }
   }
 
   const updateCategory = (category: Category) =>{
@@ -133,5 +166,5 @@ export const useProductsStore = defineStore('products', ()=>{
     };
   };
 
-  return {products, product, error, loading, fetchProducts, fetchProduct, filteredProducts, filters, updateCategory, currentProducts, updateCurrentProducts, highestPrice, resetFilters}
+  return {products, product, error, loading, fetchProducts, fetchProduct, filteredProducts, filters, updateCategory, currentProducts, updateCurrentProducts, highestPrice, resetFilters, isSearchActive, searchProducts, searchValue}
 })
