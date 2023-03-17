@@ -141,11 +141,16 @@ export const useProductsStore = defineStore('products', ()=>{
           excludeInvalid: undefined
         });
           products.value = res.allProducts;
-          filters.value.priceRange = [0, maxPriceRange]
+          currentProducts.value = TypeOfProducts.All
       } catch (e) {
         error.value = e;
       }
     }
+    else{
+      updateCurrentProducts(TypeOfProducts.All)
+    }
+    resetFilters();
+    
   }
 
   const updateCategory = (category: Category) =>{

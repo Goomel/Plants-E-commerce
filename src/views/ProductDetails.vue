@@ -1,11 +1,21 @@
 <template>
-  <v-container class="pa-0 product__view">
+  <v-container
+    class="pa-0 product__view d-flex"
+    :class="lgAndUp ? 'align-center' : ''"
+    fluid
+  >
     <div v-if="error">Error</div>
     <Loader v-if="loading" class="product__view" />
-    <template v-else-if="product">
+    <v-sheet
+      v-else-if="product"
+      class="d-flex position-relative mx-auto"
+      :class="xlAndUp ? 'flex-row' : 'flex-column'"
+      :height="lgAndUp ? '75vh' : '100vh'"
+      :width="lgAndUp ? '90%' : ''"
+    >
       <DetailsImage :images="product.images" />
       <DetailsDescription :product="product" />
-    </template>
+    </v-sheet>
   </v-container>
 </template>
 
@@ -13,6 +23,7 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { useDisplay } from "vuetify";
 import { useProductsStore } from "@/store/products";
 import DetailsImage from "@/components/DetailsImage.vue";
 import DetailsDescription from "@/components/DetailsDescription.vue";
@@ -20,6 +31,7 @@ import Loader from "@/components/Loader.vue";
 
 const route = useRoute();
 const id = ref(route.params.id);
+const { mdAndUp, lgAndUp, xlAndUp } = useDisplay();
 
 const { product, error, loading } = storeToRefs(useProductsStore());
 const { fetchProduct } = useProductsStore();

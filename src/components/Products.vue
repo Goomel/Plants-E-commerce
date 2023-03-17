@@ -2,11 +2,14 @@
   <div v-if="error">Error...</div>
   <Loader v-if="loading" />
   <div v-else>
-    <div v-if="filteredProducts.length" class="d-flex flex-wrap">
+    <div
+      v-if="filteredProducts.length"
+      class="d-flex flex-wrap justify-space-around"
+    >
       <ProductItem
         v-for="product in filteredProducts"
         :key="product.id"
-        :name="product.name"
+        :plantName="product.name"
         :images="product.images"
         :id="product.id"
       />
