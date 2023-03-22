@@ -1,4 +1,5 @@
 <template>
+  <Cart v-if="isCartActive" />
   <v-container
     class="pa-0 product__view d-flex"
     :class="lgAndUp ? 'align-center' : ''"
@@ -25,13 +26,17 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useDisplay } from "vuetify";
 import { useProductsStore } from "@/store/products";
+import { useCartStore } from "@/store/cart";
 import DetailsImage from "@/components/DetailsImage.vue";
 import DetailsDescription from "@/components/DetailsDescription.vue";
 import Loader from "@/components/Loader.vue";
+import Cart from "@/components/Cart.vue";
+
+const { isCartActive } = storeToRefs(useCartStore());
 
 const route = useRoute();
 const id = ref(route.params.id);
-const { mdAndUp, lgAndUp, xlAndUp } = useDisplay();
+const { lgAndUp, xlAndUp } = useDisplay();
 
 const { product, error, loading } = storeToRefs(useProductsStore());
 const { fetchProduct } = useProductsStore();

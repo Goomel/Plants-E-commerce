@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- <Cart v-if="isCartActive" /> -->
     <v-app-bar class="pt-6 w-100" flat absolute>
       <v-container class="w-100">
         <Search v-if="isSearchActive" />
@@ -29,8 +30,8 @@
 import CartButton from "@/components/CartButton.vue";
 import Search from "@/components/Search.vue";
 
-import { useProductsStore } from "@/store/products";
 import { storeToRefs } from "pinia";
+import { useProductsStore } from "@/store/products";
 
 const { isSearchActive } = storeToRefs(useProductsStore());
 </script>

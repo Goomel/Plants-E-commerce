@@ -41,6 +41,7 @@
           class="py-4"
           :class="lgAndUp ? 'mx-3' : ''"
           :min-width="lgAndUp ? 'auto' : '100%'"
+          @click="addToCart(product)"
           >Add to cart</v-btn
         >
       </v-card-actions>
@@ -51,17 +52,33 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
-const { lgAndUp, xlAndUp } = useDisplay();
+import { storeToRefs } from "pinia";
+import { useCartStore } from "@/store/cart";
 
 defineProps({
   product: { type: Object, required: true },
 });
 
-const quantity = ref(0);
+const { productsInCart } = storeToRefs(useCartStore());
+const { lgAndUp, xlAndUp } = useDisplay();
+
+const quantity = ref(1);
 const changeQuantity = (value: number) => {
   if (quantity.value === 0 && value < 0) {
     return;
   }
   quantity.value += value;
+};
+
+const addToCart = (product: Record<string, any>) => {
+  const id = productsInCart.value.findIndex(
+    (item) => item.product.id === product.id
+  );
+  if (id >= 0) {
+    productsInCart.value[id].quantity += quantity.value;
+  } else {
+    productsInCart.value.push({ product: product, quantity: quantity.value });
+  }
+  quantity.value = 1;
 };
 </script>
