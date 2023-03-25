@@ -23,7 +23,7 @@ export const useProductsStore = defineStore('products', ()=>{
       if (filters.value.category && product.category !== filters.value.category){
         return false
       }
-      if (filters.value.size && filters.value.size !== 'ALL' && product.size !== filters.value.size){
+      if (filters.value.size && product.size !== filters.value.size){
         return false
       }
       return true
@@ -36,7 +36,7 @@ export const useProductsStore = defineStore('products', ()=>{
     {
       priceRange: [0, maxPriceRange],
       category: null,
-      size: 'ALL',
+      size: null,
     }
   )
 
@@ -167,7 +167,7 @@ export const useProductsStore = defineStore('products', ()=>{
     filters.value = {
       priceRange: [0, maxPriceRange],
       category: null,
-      size: "ALL",
+      size: null,
     };
   };
 

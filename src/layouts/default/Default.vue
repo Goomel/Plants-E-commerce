@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- <Cart v-if="isCartActive" /> -->
     <v-app-bar class="pt-6 w-100" flat absolute>
       <v-container class="w-100">
         <Search v-if="isSearchActive" />

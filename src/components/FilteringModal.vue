@@ -11,14 +11,15 @@
 
     <v-card>
       <v-container>
-        <div
-          class="d-flex align-center justify-space-between"
-          @click="resetFilters()"
-        >
+        <div class="d-flex align-center justify-space-between">
           <v-card-title class="font-weight-bold text-uppercase text-h5"
             >Filters</v-card-title
           >
-          <v-btn rounded items-center class="pa-4 ma-0 d-flex"
+          <v-btn
+            rounded
+            items-center
+            class="pa-4 ma-0 d-flex"
+            @click="resetFilters()"
             >Reset filters</v-btn
           >
         </div>
@@ -83,6 +84,7 @@
                 variant="solo"
                 single-line
                 class="flex-grow-0"
+                clearable
               ></v-select>
             </v-row>
           </v-col>
@@ -101,7 +103,7 @@ const { updateCategory, resetFilters } = useProductsStore();
 const { filters } = storeToRefs(useProductsStore());
 
 const dialog = ref(false);
-const sizeItems: Array<string> = ["S", "M", "L", "ALL"];
+const sizeItems: Array<string> = ["S", "M", "L"];
 </script>
 
 <style>
