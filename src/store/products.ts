@@ -30,26 +30,15 @@ export const useProductsStore = defineStore('products', ()=>{
     })
   })
 
-  const maxPriceRange = 50;
+  const maxPriceRange = ref(50);
 
   const filters = ref<Filter>(
     {
-      priceRange: [0, maxPriceRange],
+      priceRange: [0, maxPriceRange.value],
       category: null,
       size: null,
     }
   )
-
-  const highestPrice = computed(()=>Math.max(...filteredProducts.value.map(product => product.price)))
-
-  watch(highestPrice, (newHighestPrice)=>{
-    if(newHighestPrice === -Infinity){
-      filters.value.priceRange[1] = maxPriceRange
-    }
-    else{
-      filters.value.priceRange[1] = newHighestPrice
-    }
-  })
 
   const fetchProducts = async (filter: TypeOfProducts = TypeOfProducts.All) => {
     error.value = null;
@@ -165,11 +154,11 @@ export const useProductsStore = defineStore('products', ()=>{
   
   const resetFilters = () => {
     filters.value = {
-      priceRange: [0, maxPriceRange],
+      priceRange: [0, maxPriceRange.value],
       category: null,
       size: null,
     };
   };
 
-  return {products, product, error, loading, fetchProducts, fetchProduct, filteredProducts, filters, updateCategory, currentProducts, updateCurrentProducts, highestPrice, resetFilters, isSearchActive, searchProducts, searchValue}
+  return {products, product, error, loading, fetchProducts, fetchProduct, filteredProducts, filters, updateCategory, currentProducts, updateCurrentProducts, maxPriceRange, resetFilters, isSearchActive, searchProducts, searchValue}
 })

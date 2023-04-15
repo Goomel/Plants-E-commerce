@@ -14,6 +14,17 @@
       :height="lgAndUp ? '75vh' : '100vh'"
       :width="lgAndUp ? '90%' : ''"
     >
+      <v-toolbar color="transparent" absolute>
+        <v-btn
+          class="ma-2"
+          variant="text"
+          icon="mdi-arrow-left"
+          size="large"
+          @click="$router.go(-1)"
+        />
+        <v-spacer></v-spacer>
+        <CartButton />
+      </v-toolbar>
       <DetailsImage :images="product.images" />
       <DetailsDescription :product="product" />
     </v-sheet>
@@ -31,6 +42,7 @@ import DetailsImage from "@/components/DetailsImage.vue";
 import DetailsDescription from "@/components/DetailsDescription.vue";
 import Loader from "@/components/Loader.vue";
 import Cart from "@/components/Cart.vue";
+import CartButton from "@/components/CartButton.vue";
 
 const { isCartActive } = storeToRefs(useCartStore());
 

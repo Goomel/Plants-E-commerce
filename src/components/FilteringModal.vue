@@ -125,7 +125,6 @@ const sizeItems: Array<string> = ["S", "M", "L"];
   background-color: #eceff1;
   border: 1px solid #b0bec5;
 }
-.category-button:hover,
 .is-active-button {
   background-color: #4caf50;
   border: 1px solid #4caf50;

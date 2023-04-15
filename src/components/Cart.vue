@@ -35,7 +35,7 @@
                 {{ item.product.name }}
               </v-list-item-title>
               <v-list-item-subtitle>{{
-                `Price: ${item.product.price}`
+                `Price: ${item.product.price} $`
               }}</v-list-item-subtitle>
               <v-list-item-subtitle>{{
                 `Amount: ${item.quantity}`

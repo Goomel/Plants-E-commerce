@@ -1,8 +1,9 @@
 <template>
   <v-card
     :to="'/product/' + id"
-    class="mb-8 mx-2 pb-5 flex-grow-1 flex-gap"
     :width="cardWidth"
+    :max-width="maxCardWidth"
+    class="mb-8 mx-2 pb-5 flex-grow-1 flex-gap"
     color="blue-grey-lighten-5"
   >
     <template v-slot:title>
@@ -15,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useDisplay } from "vuetify";
-const { name } = useDisplay();
+const { name, lgAndUp } = useDisplay();
 
 const cardWidth = computed(() => {
   switch (name.value) {
@@ -33,6 +34,14 @@ const cardWidth = computed(() => {
       return "25%";
   }
   return undefined;
+});
+
+const maxCardWidth = computed(() => {
+  if (lgAndUp.value) {
+    return "40%";
+  } else {
+    return "100%";
+  }
 });
 
 defineProps({

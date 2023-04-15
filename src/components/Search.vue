@@ -24,15 +24,15 @@
 import { useProductsStore } from "@/store/products";
 import { storeToRefs } from "pinia";
 
-const { isSearchActive, searchValue, products } = storeToRefs(
-  useProductsStore()
-);
+const { isSearchActive, searchValue, filters, currentProducts, maxPriceRange } =
+  storeToRefs(useProductsStore());
 const { searchProducts, fetchProducts } = useProductsStore();
 
 const closeSearch = () => {
   isSearchActive.value = false;
   searchValue.value = "";
-  if (!products.value.length) fetchProducts();
+  filters.value.priceRange = [0, maxPriceRange.value];
+  fetchProducts(currentProducts.value);
 };
 </script>
 

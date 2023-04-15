@@ -18,7 +18,7 @@ export const useCartStore = defineStore('cart', () => {
     const getTotal = () => {
         if (productsInCart.value.length === 0) return 0;
         else {
-            return productsInCart.value.reduce((total, currProduct) => (total + currProduct.product.price * currProduct.quantity), 0)
+            return productsInCart.value.reduce((total, currProduct) => (total + currProduct.product.price * currProduct.quantity), 0).toFixed(2)
         }
     }
     return { isCartActive, productsInCart, removeProduct, closeCart, openCart, amountOfCartItems, getTotal }
